@@ -21,6 +21,16 @@ public class Movie {
         this.userId = userId;
     }
 
+    public Movie(String title, String description, String releaseDate, String image, int userId) {
+        this.title = title;
+        this.description = description;
+        this.releaseDate = releaseDate;
+        this.image = image;
+        this.userId = userId;
+    }
+
+
+
     // Getters and Setters
     public int getId() {
         return id;

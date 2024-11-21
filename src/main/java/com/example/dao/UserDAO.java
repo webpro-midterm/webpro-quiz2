@@ -74,27 +74,33 @@ public class UserDAO {
       System.out.println("Database connection is not initialized!");
       return null;
     }
-    String sqlQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
+    String sqlQuery = "SELECT id, email, username, password FROM users WHERE email = ? AND password = ?";
     try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
       statement.setString(1, theEmail);
       statement.setString(2, thePassword);
-      System.out.println("This line safe 1");
+      System.out.println("Executing query: " + sqlQuery);
       ResultSet result = statement.executeQuery();
       if (result.next()) {
-        System.out.println("This line safe 2");
+        System.out.println("User found in database.");
+        // Fetch fields from the database
+        int id = result.getInt("id"); // Get user ID
         String email = result.getString("email");
         String username = result.getString("username");
-        String password = result.getString("password"); // Correct spelling
+        String password = result.getString("password");
 
-        System.out.println("Received password from DAO: " + password);
-        return new User(username, password, email);
+        // Log the retrieved values for debugging
+        System.out.println("ID: " + id + ", Email: " + email + ", Username: " + username);
+
+        // Create and return a User object with the ID
+        return new User(id, username, password, email);
       }
     } catch (SQLException e) {
       e.printStackTrace();
-      System.out.println("nothing");
+      System.out.println("Error occurred while fetching user.");
     }
-    return null;
+    return null; // Return null if no user is found
   }
+
 
 
   public User getUserById(int userId){

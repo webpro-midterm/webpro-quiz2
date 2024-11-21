@@ -71,7 +71,7 @@
             </div>
 
             <div class="bg-[#0B0C10] p-5 rounded-xl">
-                <form action="<c:url value='/movies/create' />" method="POST" enctype="multipart/form-data" class="flex flex-col justify-start">
+                <form action="<c:url value='/posts/create' />" method="POST" class="flex flex-col justify-start">
                     <input type="hidden" name="_csrf" value="${_csrf.token}" />
                     <!-- CSRF Token (ensure it is included in the form) -->
 

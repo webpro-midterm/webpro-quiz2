@@ -30,7 +30,9 @@ public class LoginServlet extends HttpServlet {
       // If the user exists, store the user in the session
       HttpSession session = request.getSession();
       session.setAttribute("user", user);
-      System.out.println("No User");
+      session.setAttribute("user_id", user.getId());
+      System.out.println("user id = " + user.getId());
+      System.out.println("email = " + user.getEmail());
       // Redirect to the welcome page or home page
       response.sendRedirect("dashboard.jsp");
     } else {

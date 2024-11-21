@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-@WebServlet("/movies")
 public class MovieServlet extends HttpServlet {
     private MovieDAO movieDAO;
 
@@ -34,7 +33,7 @@ public class MovieServlet extends HttpServlet {
     }
 
     // Show the form for creating a new movie
-    @WebServlet("/movies/create")
+    @WebServlet("/posts/create")
     public static class CreateMovieServlet extends HttpServlet {
         private MovieDAO movieDAO;
 
@@ -49,7 +48,7 @@ public class MovieServlet extends HttpServlet {
 
         @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/create.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/create");
             dispatcher.forward(request, response);
         }
 
@@ -58,6 +57,8 @@ public class MovieServlet extends HttpServlet {
             // Get the user_id from session (ensure user is logged in)
             HttpSession session = request.getSession();
             Integer userId = (Integer) session.getAttribute("user_id");
+            System.out.println("doPost is triggered ");
+
 
             if (userId == null) {
                 // If user is not logged in, redirect to login page
@@ -70,16 +71,17 @@ public class MovieServlet extends HttpServlet {
             String description = request.getParameter("description");
             String releaseDate = request.getParameter("release_date");
             String image = request.getParameter("image");
-
+            System.out.println("Title: " + title);
             // Create a Movie object with the user_id from the session
-            Movie movie = new Movie(0, title, description, releaseDate, image, userId);
+            Movie movie = new Movie(title, description, releaseDate, image, userId);
+            System.out.println("Title " + movie.getTitle());
             boolean isAdded = movieDAO.addMovie(movie);
-
+            System.out.println("Movie Added: " + isAdded);
             if (isAdded) {
-                response.sendRedirect("/movies");
+                response.sendRedirect(request.getContextPath() + "/posts");
             } else {
                 request.setAttribute("error", "Failed to add movie");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/create.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/create");
                 dispatcher.forward(request, response);
             }
         }
@@ -112,14 +114,27 @@ public class MovieServlet extends HttpServlet {
         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             // Get the user_id from session (ensure user is logged in)
             HttpSession session = request.getSession();
-            Integer userId = (Integer) session.getAttribute("user_id");
+            String userIdParam = request.getParameter("user_id");
 
-            if (userId == null) {
-                // If user is not logged in, redirect to login page
+            if (userIdParam == null || userIdParam.isEmpty()) {
+                // If the user_id parameter is missing, redirect to login page
                 response.sendRedirect("/login");
+                System.out.println("parameter missing");
                 return;
             }
 
+            int userId;
+            try {
+                userId = Integer.parseInt(userIdParam);  // Try to parse the user_id
+            } catch (NumberFormatException e) {
+                // If the user_id is not a valid number, redirect to login page
+                System.out.println("nothing");
+                response.sendRedirect("/login");
+                return;
+            }
+            System.out.println(userId);
+            System.out.println(userIdParam);
+            System.out.println("user");
             // Get movie details from the form
             int id = Integer.parseInt(request.getParameter("id"));
             String title = request.getParameter("title");
@@ -132,7 +147,7 @@ public class MovieServlet extends HttpServlet {
             boolean isUpdated = movieDAO.updateMovie(movie);
 
             if (isUpdated) {
-                response.sendRedirect("/movies");
+                response.sendRedirect("/posts");
             } else {
                 request.setAttribute("error", "Failed to update movie");
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/edit.jsp");
@@ -142,7 +157,7 @@ public class MovieServlet extends HttpServlet {
     }
 
     // Delete a movie
-    @WebServlet("/movies/delete")
+    @WebServlet("/posts/delete")
     public static class DeleteMovieServlet extends HttpServlet {
         private MovieDAO movieDAO;
 
