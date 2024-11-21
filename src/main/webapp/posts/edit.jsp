@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.tailwindcss.com" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="input.css" rel="stylesheet">
+    <link href="../input.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
     </style>
@@ -31,7 +31,7 @@
             <div id="menu" class="hidden md:flex space-x-4">
                 <a href="../dashboard.jsp" class="hover:text-gray-400 text-white">Home</a>
                 <a href="index.jsp" class="hover:text-gray-400 text-white">Post</a>
-                <a href="<c:url value='/reviews' />" class="hover:text-gray-400 text-white">Reviews</a>
+                <a href="../reviews/index.jsp" class="hover:text-gray-400 text-white">Reviews</a>
             </div>
         </div>
     </nav>

@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.tailwindcss.com" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="input.css" rel="stylesheet">
+  <link href="../input.css" rel="stylesheet">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.bunny.net">
@@ -59,7 +59,7 @@
       <div id="menu" class="hidden md:flex space-x-4">
         <a href="dashboard.jsp" class="hover:text-gray-400 text-white">Home</a>
         <a href="posts/index.jsp" class="hover:text-gray-400 text-white">Post</a>
-        <a href="<c:url value='/reviews' />" class="hover:text-gray-400 text-white">Reviews</a>
+        <a href="index.jsp" class="hover:text-gray-400 text-white">Reviews</a>
       </div>
     </div>
     <!-- Mobile Menu -->

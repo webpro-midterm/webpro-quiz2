@@ -24,7 +24,9 @@
 <%--  <link href="<%= resourcesPath %>/css/app.css" rel="stylesheet">--%>
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+    body {
+      font-family: 'Cosmic', sans-serif;
+    }
   </style>
 </head>
 
@@ -42,7 +44,7 @@
 
 <%--  <!-- Navbar Include -->--%>
 <%--  <%@ include file="layouts/navbar.jsp" %>--%>
-  <nav class="bg-[#1F2833] h-16 flex items-center">
+  <nav class="bg-[#1F2833] h-16 flex items-center z-50">
     <div class="container mx-auto flex justify-between items-center">
       <!-- Logo or Brand -->
       <a href="<c:url value='/' />" class="flex items-center">
@@ -63,11 +65,8 @@
       <div id="menu" class="hidden md:flex space-x-4">
         <a href="dashboard.jsp" class="hover:text-gray-400 text-white">Home</a>
         <a href="posts/index.jsp" class="hover:text-gray-400 text-white">Post</a>
-        <a href="<c:url value='/reviews' />" class="hover:text-gray-400 text-white">Reviews</a>
+        <a href="reviews/index.jsp" class="hover:text-gray-400 text-white">Reviews</a>
       </div>
-
-      <!-- Authentication Links -->
-
     </div>
 
     <!-- Mobile Menu (Initially Hidden) -->
