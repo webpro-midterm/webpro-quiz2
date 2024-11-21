@@ -1,9 +1,13 @@
 package com.example.dao;
 
+import com.example.model.Movie;
+import com.example.model.Review;
 import com.example.model.User;
 import com.example.util.DBUtil;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
   private Connection connection;
@@ -90,5 +94,68 @@ public class UserDAO {
       System.out.println("nothing");
     }
     return null;
+  }
+
+
+  public User getUserById(int userId){
+    String sql = "SELECT * FROM users WHERE id = ?";
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+      statement.setInt(1, userId);
+      ResultSet resultSet = statement.executeQuery();
+      if(resultSet.next()){
+        return new User(
+                resultSet.getInt("id"),
+                resultSet.getString("name"),
+                resultSet.getString("email"),
+                resultSet.getString("password")
+        );
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  public Movie getMovieById(int id) {
+    String sql = "SELECT * FROM movies WHERE id = ?";
+    try (PreparedStatement statement = connection.prepareStatement(sql)) {
+      statement.setInt(1, id);
+      ResultSet resultSet = statement.executeQuery();
+      if (resultSet.next()) {
+        Movie movie = new Movie(resultSet.getInt("id"), resultSet.getString("title"),
+                resultSet.getString("description"), resultSet.getString("release_date"),
+                resultSet.getString("image"), resultSet.getInt("user_id"));
+
+        movie.setReviews(getReviewsForMovie(id));
+        return movie;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  public List<Review> getReviewsForMovie(int movieID) {
+    List<Review> reviews = new ArrayList<>();
+    String sqlQuery = "SELECT * FROM reviews WHERE movie_id = ?";
+    try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+      statement.setInt(1, movieID);
+      ResultSet result = statement.executeQuery();
+
+      while(result.next()){
+        int user_id = result.getInt("user_id");
+        String content = result.getString("content");
+        int rating = result.getInt("rating");
+        int movie_id = result.getInt(("movie_id"));
+        Movie movie = getMovieById(movie_id);
+        User user = getUserById(user_id);
+
+        Review review = new Review(user_id, content, rating, movie_id, movie.getTitle(), movie, user);
+        reviews.add(review);
+      }
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    return reviews;
   }
 }
