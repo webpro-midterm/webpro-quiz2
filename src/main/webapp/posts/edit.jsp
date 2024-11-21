@@ -26,23 +26,27 @@
     <div class="shape"></div>
 
     <!-- Navbar Include -->
-    <nav class="bg-[#1F2833] h-16 flex items-center bg-opacity-50">
+    <nav class="bg-[#1F2833] h-16 flex items-center z-50 bg-opacity-50">
         <div class="container mx-auto flex justify-between items-center">
+            <!-- Logo or Brand -->
             <a href="<c:url value='/' />" class="flex items-center">
                 <img src="${pageContext.request.contextPath}/images/logo.png" alt="Logo" class="h-20" />
             </a>
-            <div class="block md:hidden">
-                <button id="menu-btn" class="text-white focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
+
+            <!-- Links (centered) -->
+            <div id="menu" class="flex-1 hidden md:flex justify-center space-x-4">
+                <a href="../dashboard.jsp" class="hover:text-gray-400 text-white">Home</a>
+                <a href="../posts/index.jsp" class="hover:text-gray-400 text-white">Post</a>
+                <a href="../reviews/index.jsp" class="hover:text-gray-400 text-white">Reviews</a>
             </div>
 
-            <div id="menu" class="hidden md:flex space-x-4">
-                <a href="../dashboard.jsp" class="hover:text-gray-400 text-white">Home</a>
-                <a href="index.jsp" class="hover:text-gray-400 text-white">Post</a>
-                <a href="../reviews/index.jsp" class="hover:text-gray-400 text-white">Reviews</a>
+            <!-- Logout button (aligned to the right) -->
+            <div>
+                <form action="${pageContext.request.contextPath}/LogoutServlet" method="GET">
+                    <button type="submit" class="text-white hover:text-gray-400 px-4 py-2">
+                        Logout
+                    </button>
+                </form>
             </div>
         </div>
     </nav>
