@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/cosmic" rel="stylesheet">
-    <title>JSP Page</title>
+    <title>Rate-View</title>
     <script>
         tailwind.config = {
             theme: {

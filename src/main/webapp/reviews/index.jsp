@@ -20,7 +20,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+        /* Add custom font styles here */
+        body {
+            font-family: 'Zen Dots', cursive, sans-serif;
+        }
+
+        .font-zen {
+            font-family: 'Zen Dots', cursive, sans-serif;
+        }
+
+        .font-cosmic {
+            font-family: 'Cosmic', sans-serif;
+        }
     </style>
 </head>
 
@@ -37,7 +48,7 @@
     <div class="shape"></div>
 
     <!-- Navbar -->
-    <nav class="bg-[#1F2833] h-16 flex items-center">
+    <nav class="bg-[#1F2833] h-16 flex items-center bg-opacity-50">
         <div class="container mx-auto flex justify-between items-center">
             <!-- Logo or Brand -->
             <a href="<c:url value='/' />" class="flex items-center">

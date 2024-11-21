@@ -32,7 +32,7 @@ body {
     height: 100vh;
     top: 0;
     left: 0;
-    background: #1f2833;
+    background: #575c5e;
     overflow: hidden;
     overflow-y: scroll;
 }
@@ -44,11 +44,12 @@ body {
     backface-visibility: hidden;
     position: absolute;
     animation: move linear infinite;
+    z-index: -1; /* Ensure shapes are in the background */
 }
 
 .background .shape:nth-child(1) {
     color: #ffffda;
-    top: 38%;
+    top: 95%;  /* Move it closer to the bottom */
     left: 16%;
     animation-duration: 8s;
     animation-delay: -40s;
@@ -57,7 +58,7 @@ body {
 }
 .background .shape:nth-child(2) {
     color: #ffffda;
-    top: 56%;
+    top: 92%;  /* Move it closer to the bottom */
     left: 79%;
     animation-duration: 18s;
     animation-delay: -45s;
@@ -66,7 +67,7 @@ body {
 }
 .background .shape:nth-child(3) {
     color: #ffffda;
-    top: 29%;
+    top: 87%;  /* Move it closer to the bottom */
     left: 51%;
     animation-duration: 13s;
     animation-delay: -47s;
@@ -75,7 +76,7 @@ body {
 }
 .background .shape:nth-child(4) {
     color: #ffffda;
-    top: 11%;
+    top: 85%;  /* Move it closer to the bottom */
     left: 4%;
     animation-duration: 39s;
     animation-delay: -45s;
@@ -83,8 +84,8 @@ body {
     box-shadow: 68vmin 0 8.6vmin currentColor;
 }
 .background .shape:nth-child(5) {
-    color: #66fcf1;
-    top: 71%;
+    color: #94d7d4;
+    top: 90%;  /* Move it closer to the bottom */
     left: 59%;
     animation-duration: 55s;
     animation-delay: -5s;
@@ -92,8 +93,8 @@ body {
     box-shadow: 68vmin 0 8.7vmin currentColor;
 }
 .background .shape:nth-child(6) {
-    color: #66fcf1;
-    top: 95%;
+    color: #94d7d4;
+    top: 98%;  /* Move it closer to the bottom */
     left: 89%;
     animation-duration: 46s;
     animation-delay: -46s;
@@ -101,8 +102,8 @@ body {
     box-shadow: 68vmin 0 8.8vmin currentColor;
 }
 .background .shape:nth-child(7) {
-    color: #66fcf1;
-    top: 25%;
+    color: #94d7d4;
+    top: 85%;  /* Move it closer to the bottom */
     left: 32%;
     animation-duration: 44s;
     animation-delay: -41s;
@@ -110,8 +111,8 @@ body {
     box-shadow: -68vmin 0 9vmin currentColor;
 }
 .background .shape:nth-child(8) {
-    color: #1f2833;
-    top: 82%;
+    color: #8a929b;
+    top: 97%;  /* Move it closer to the bottom */
     left: 25%;
     animation-duration: 41s;
     animation-delay: -16s;
@@ -119,8 +120,8 @@ body {
     box-shadow: -68vmin 0 9vmin currentColor;
 }
 .background .shape:nth-child(9) {
-    color: #1f2833;
-    top: 80%;
+    color: #98a2a9;
+    top: 99%;  /* Move it closer to the bottom */
     left: 76%;
     animation-duration: 16s;
     animation-delay: -8s;

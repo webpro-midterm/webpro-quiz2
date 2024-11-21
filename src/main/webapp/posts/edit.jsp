@@ -7,7 +7,18 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="../input.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+        /* Add custom font styles here */
+        body {
+            font-family: 'Zen Dots', cursive, sans-serif;
+        }
+
+        .font-zen {
+            font-family: 'Zen Dots', cursive, sans-serif;
+        }
+
+        .font-cosmic {
+            font-family: 'Cosmic', sans-serif;
+        }
     </style>
 </head>
 <body class="font-sans antialiased">
@@ -15,7 +26,7 @@
     <div class="shape"></div>
 
     <!-- Navbar Include -->
-    <nav class="bg-[#1F2833] h-16 flex items-center">
+    <nav class="bg-[#1F2833] h-16 flex items-center bg-opacity-50">
         <div class="container mx-auto flex justify-between items-center">
             <a href="<c:url value='/' />" class="flex items-center">
                 <img src="${pageContext.request.contextPath}/images/logo.png" alt="Logo" class="h-20" />

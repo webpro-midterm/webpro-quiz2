@@ -44,7 +44,7 @@
 
 <%--  <!-- Navbar Include -->--%>
 <%--  <%@ include file="layouts/navbar.jsp" %>--%>
-  <nav class="bg-[#1F2833] h-16 flex items-center z-50">
+  <nav class="bg-[#1F2833] h-16 flex items-center z-50 bg-opacity-50">
     <div class="container mx-auto flex justify-between items-center">
       <!-- Logo or Brand -->
       <a href="<c:url value='/' />" class="flex items-center">

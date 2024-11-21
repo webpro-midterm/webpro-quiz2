@@ -7,9 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="../input.css" rel="stylesheet">
 
-    <%--  <meta name="csrf-token" content="<%= csrfToken %>">--%>
-    <%--  <title><%= appConfig.get("app.name", "JavaApp") %></title>--%>
-
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -19,12 +16,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
 
-    <!-- Scripts -->
-    <%--  <script src="<%= resourcesPath %>/js/app.js" type="text/javascript"></script>--%>
-    <%--  <link href="<%= resourcesPath %>/css/app.css" rel="stylesheet">--%>
-
+    <!-- Custom Styles -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+        /* Add custom font styles here */
+        body {
+            font-family: 'Zen Dots', cursive, sans-serif;
+        }
+
+        .font-zen {
+            font-family: 'Zen Dots', cursive, sans-serif;
+        }
+
+        .font-cosmic {
+            font-family: 'Cosmic', sans-serif;
+        }
     </style>
 </head>
 
@@ -40,9 +45,8 @@
     <div class="shape"></div>
     <div class="shape"></div>
 
-    <%--  <!-- Navbar Include -->--%>
-    <%--  <%@ include file="layouts/navbar.jsp" %>--%>
-    <nav class="bg-[#1F2833] h-16 flex items-center">
+    <!-- Navbar Include -->
+    <nav class="bg-[#1F2833] h-16 flex items-center bg-opacity-50">
         <div class="container mx-auto flex justify-between items-center">
             <!-- Logo or Brand -->
             <a href="<c:url value='/' />" class="flex items-center">
@@ -67,7 +71,6 @@
             </div>
 
             <!-- Authentication Links -->
-
         </div>
 
         <!-- Mobile Menu (Initially Hidden) -->
@@ -79,18 +82,8 @@
         </div>
     </nav>
 
-    <%--  <!-- Page Heading -->--%>
-    <%--  <% if (header != null) { %>--%>
-    <%--  <header class="bg-[#2F4156]">--%>
-    <%--    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">--%>
-    <%--      <%= header %>--%>
-    <%--    </div>--%>
-    <%--  </header>--%>
-    <%--  <% } %>--%>
-
-    <%--  <!-- Page Content -->--%>
+    <!-- Page Content -->
     <main class="flex items-center justify-center mt-10">
-        <body class="font-sans antialiased bg-[#F5EFEB] text-black/50">
         <div class="container flex flex-col items-center">
             <div class="bg-[#1F2833] p-5 rounded-2xl flex flex-col items-center">
                 <h1 class="text-4xl mb-5 text-[#66FCF1] font-bold font-zen">POST</h1>
@@ -134,7 +127,6 @@
                 </div>
             </div>
         </div>
-        </body>
     </main>
 </div>
 
