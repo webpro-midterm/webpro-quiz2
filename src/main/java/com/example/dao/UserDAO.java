@@ -55,10 +55,39 @@ public class UserDAO {
         String email = result.getString("email");
         String username = result.getString("username");
         String password = result.getString("password"); // Correct spelling
+        System.out.println("Received password from DAO: " + password);
         return new User(username, password, email);
       }
     } catch (SQLException e) {
       e.printStackTrace();
+      System.out.println("nothing");
+    }
+    return null;
+  }
+
+  public User getUserFromEmail(String theEmail, String thePassword) {
+    if (connection == null) {
+      System.out.println("Database connection is not initialized!");
+      return null;
+    }
+    String sqlQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
+    try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+      statement.setString(1, theEmail);
+      statement.setString(2, thePassword);
+      System.out.println("This line safe 1");
+      ResultSet result = statement.executeQuery();
+      if (result.next()) {
+        System.out.println("This line safe 2");
+        String email = result.getString("email");
+        String username = result.getString("username");
+        String password = result.getString("password"); // Correct spelling
+
+        System.out.println("Received password from DAO: " + password);
+        return new User(username, password, email);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+      System.out.println("nothing");
     }
     return null;
   }

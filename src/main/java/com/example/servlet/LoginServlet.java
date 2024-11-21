@@ -17,19 +17,22 @@ public class LoginServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ServletException, IOException {
     // Get the parameters from the form
-    String username = request.getParameter("username");
+    String email = request.getParameter("email");
     String password = request.getParameter("password");
 
+    System.out.println("Received email: " + email);
+    System.out.println("Received password: " + password);
     // Try to get the user from the database using the DAO
-    User user = userDAO.getUserSafe(username, password);
+    User user = userDAO.getUserFromEmail(email, password);
 
+    System.out.println("User retrieved: " + (user != null ? user.getUsername() : "null"));
     if (user != null) {
       // If the user exists, store the user in the session
       HttpSession session = request.getSession();
       session.setAttribute("user", user);
-
+      System.out.println("No User");
       // Redirect to the welcome page or home page
-      response.sendRedirect("welcome.jsp");
+      response.sendRedirect("dashboard.jsp");
     } else {
       // If login fails, redirect back to the login page with an error message
       request.setAttribute("errorMessage", "Invalid username or password");
