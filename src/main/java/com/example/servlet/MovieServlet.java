@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 import com.example.util.DBUtil;
 
@@ -17,7 +18,11 @@ public class MovieServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+      try {
         movieDAO = new MovieDAO(DBUtil.getConnection());
+      } catch (SQLException e) {
+        throw new RuntimeException(e);
+      }
     }
 
     @Override
