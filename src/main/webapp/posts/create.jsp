@@ -1,3 +1,5 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="<%= request.getLocale().toString().replace('_', '-') %>">
 <head>
@@ -69,7 +71,7 @@
             </div>
 
             <div class="bg-[#0B0C10] p-5 rounded-xl">
-                <form action="<c:url value='/movies/store' />" method="POST" enctype="multipart/form-data" class="flex flex-col justify-start">
+                <form action="<c:url value='/movies/create' />" method="POST" enctype="multipart/form-data" class="flex flex-col justify-start">
                     <input type="hidden" name="_csrf" value="${_csrf.token}" />
                     <!-- CSRF Token (ensure it is included in the form) -->
 
@@ -85,17 +87,17 @@
                         <div class="flex-1">
                             <div class="mb-4 flex flex-col">
                                 <label for="title" class="form-label text-white">Title</label>
-                                <input type="text" name="title" id="title" class="form-control">
+                                <input type="text" name="title" id="title" class="form-control" required>
                             </div>
 
                             <div class="mb-4 flex flex-col">
                                 <label for="description" class="form-label text-white">Description</label>
-                                <textarea name="description" id="description" class="form-control"></textarea>
+                                <textarea name="description" id="description" class="form-control" required></textarea>
                             </div>
 
                             <div class="mb-4 flex flex-col">
                                 <label for="release_date" class="form-label text-white">Release Date</label>
-                                <input type="date" name="release_date" id="release_date" class="form-control">
+                                <input type="date" name="release_date" id="release_date" class="form-control" required>
                             </div>
                         </div>
                     </div>

@@ -17,25 +17,40 @@
         <url-pattern>/RegisterServlet</url-pattern>
     </servlet-mapping>
 
+    <!-- Login -->
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.example.servlet.LoginServlet</servlet-class>
     </servlet>
 
-    <!-- Servlet Mapping -->
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
     </servlet-mapping>
 
+    <!-- Logout -->
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>com.example.servlet.LogoutServlet</servlet-class>
     </servlet>
 
-    <!-- Servlet Mapping -->
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
     </servlet-mapping>
+
+
+    <!-- Movie -->
+    <servlet>
+        <servlet-name>MovieServlet</servlet-name>
+        <servlet-class>com.example.servlet.MovieServlet</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>MovieServlet</servlet-name>
+        <url-pattern>/MovieServlet</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
