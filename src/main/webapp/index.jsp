@@ -43,9 +43,22 @@
             </div>
             <!-- Right side (Links) -->
             <div class="px-4 sm:px-24 space-x-1 flex items-center">
-                <a href="dashboard.jsp" class="text-[#66FCF1] px-3 py-2 hover:text-white/70 md:text-2xl text-sm">
-                    Dashboard
-                </a>
+                <c:choose>
+                    <!-- Check if the user is logged in -->
+                    <c:when test="${not empty session.user}">
+                        <a href="dashboard.jsp" class="text-[#66FCF1] px-3 py-2 hover:text-white/70 md:text-2xl text-sm">
+                            Dashboard
+                        </a>
+                    </c:when>
+                    <c:otherwise>
+                        <a href="login.jsp" class="text-[#66FCF1] px-3 py-2 hover:text-white/70 md:text-2xl text-sm">
+                            Login
+                        </a>
+                        <a href="register.jsp" class="text-[#66FCF1] px-3 py-2 hover:text-white/70 md:text-2xl text-sm">
+                            Register
+                        </a>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </nav>
     </header>
