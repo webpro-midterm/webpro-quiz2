@@ -1,130 +1,96 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= request.getLocale().toString().replace('_', '-') %>">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="input.css" rel="stylesheet">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.bunny.net">
+  <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.cdnfonts.com/css/cosmic" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: #f5f5f5;
-      padding: 50px;
-    }
-    .container {
-      width: 400px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-      text-align: center;
-      color: #66FCF1;
-    }
-    .form-group {
-      margin-bottom: 15px;
-    }
-    .form-group label {
-      font-size: 14px;
-      color: #333;
-    }
-    .form-group input {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-    .form-group input:focus {
-      border-color: #66FCF1;
-      outline: none;
-    }
-    .form-group .error {
-      color: red;
-      font-size: 12px;
-    }
-    .form-group .success {
-      color: green;
-      font-size: 12px;
-    }
-    .form-group button {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      background-color: #66FCF1;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .form-group button:hover {
-      background-color: #45a0b3;
-    }
-    .login-link {
-      text-align: center;
-      margin-top: 20px;
-    }
-    .login-link a {
-      color: #333;
-      text-decoration: none;
-    }
-    .login-link a:hover {
-      text-decoration: underline;
+      font-family: 'Cosmic', sans-serif;
     }
   </style>
 </head>
-<body>
 
-<div class="container">
-  <h1>Register</h1>
+<body class="font-sans antialiased">
+<div class="background min-h-screen" style="background-color: #1F2833;">
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
 
-  <!-- Registration form -->
-  <form method="POST" action="RegisterServlet">
-    <!-- Username -->
-    <div class="form-group">
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" value="${param.username != null ? param.username : ''}" required />
-      <c:if test="${not empty requestScope.usernameError}">
-        <span class="error">${requestScope.usernameError}</span>
+  <!-- Page Content -->
+  <main class="flex items-center justify-center mt-10">
+    <!-- Register Form -->
+    <div class="max-w-md mx-auto mt-6 bg-[#181c24] p-8 rounded-md">
+      <h1 class="text-2xl text-[#66FCF1] font-zen mt-10 text-center">REGISTER</h1>
+
+      <!-- Display errors (if any) -->
+      <c:if test="${not empty errorMessage}">
+        <p style="color:red;" class="text-center">${errorMessage}</p>
       </c:if>
-    </div>
 
-    <!-- Email -->
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input type="email" id="email" name="email" value="${param.email != null ? param.email : ''}" required />
-      <c:if test="${not empty requestScope.emailError}">
-        <span class="error">${requestScope.emailError}</span>
-      </c:if>
-    </div>
+      <form method="POST" action="RegisterServlet" class="mt-6">
+        <div>
+          <label for="username" class="block text-sm font-medium text-gray-100">Username</label>
+          <input id="username" class="block mt-1 w-full bg-[#181c24] text-white border border-gray-600 p-2" type="text" name="username" value="${param.username}" required autofocus autocomplete="username">
+          <c:if test="${not empty errors.username}">
+            <p class="text-red-500 text-sm">${errors.username}</p>
+          </c:if>
+        </div>
 
-    <!-- Password -->
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" required />
-      <c:if test="${not empty requestScope.passwordError}">
-        <span class="error">${requestScope.passwordError}</span>
-      </c:if>
-    </div>
+        <div class="mt-4">
+          <label for="email" class="block text-sm font-medium text-gray-100">Email</label>
+          <input id="email" class="block mt-1 w-full bg-[#181c24] text-white border border-gray-600 p-2" type="email" name="email" value="${param.email}" required>
+          <c:if test="${not empty errors.email}">
+            <p class="text-red-500 text-sm">${errors.email}</p>
+          </c:if>
+        </div>
 
-    <!-- Confirm Password -->
-    <div class="form-group">
-      <label for="password_confirmation">Confirm Password</label>
-      <input type="password" id="password_confirmation" name="password_confirmation" required />
-    </div>
+        <div class="mt-4">
+          <label for="password" class="block text-sm font-medium text-gray-100">Password</label>
+          <input id="password" class="block mt-1 w-full bg-[#181c24] text-white border border-gray-600 p-2" type="password" name="password" required autocomplete="new-password">
+          <c:if test="${not empty errors.password}">
+            <p class="text-red-500 text-sm">${errors.password}</p>
+          </c:if>
+        </div>
 
-    <!-- Submit Button -->
-    <div class="form-group">
-      <button type="submit">Register</button>
-    </div>
-  </form>
+        <div class="mt-4">
+          <label for="password_confirm" class="block text-sm font-medium text-gray-100">Confirm Password</label>
+          <input id="password_confirm" class="block mt-1 w-full bg-[#181c24] text-white border border-gray-600 p-2" type="password" name="password_confirm" required autocomplete="new-password">
+          <c:if test="${not empty errors.password_confirm}">
+            <p class="text-red-500 text-sm">${errors.password_confirm}</p>
+          </c:if>
+        </div>
 
-  <div class="login-link">
-    <p>Already have an account? <a href="login.jsp">Login here</a></p>
-  </div>
+        <div class="flex items-center justify-between mt-6">
+          <button type="submit" class="px-6 py-2 bg-indigo-600 text-white rounded-md w-full">Register</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-16 text-center text-sm text-white">
+    Webpro IUP 2024
+  </footer>
+
 </div>
-
 </body>
 </html>
