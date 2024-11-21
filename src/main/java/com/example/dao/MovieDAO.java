@@ -2,6 +2,7 @@ package com.example.dao;
 
 import com.example.model.Movie;
 import com.example.model.Review;
+import com.example.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -42,6 +43,25 @@ public class MovieDAO {
 
                 movie.setReviews(getReviewsForMovie(id));
                 return movie;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public User getUserByID(int userId){
+        String sql = "SELECT * FROM users WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                return new User(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getString("email"),
+                        resultSet.getString("password")
+                );
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -102,8 +122,12 @@ public class MovieDAO {
             statement.setInt(1, movieId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
+                int userId = resultSet.getInt("user_id");
+                User user = getUserByID(userId);
+                Movie movie = getMovieById(movieId);
                 reviews.add(new Review(resultSet.getInt("id"), resultSet.getString("content"),
-                        resultSet.getInt("rating"), resultSet.getInt("movie_id")));
+                        resultSet.getInt("rating"), resultSet.getInt("movie_id"),
+                        resultSet.getString("title"), movie, user));
             }
         } catch (SQLException e) {
             e.printStackTrace();
