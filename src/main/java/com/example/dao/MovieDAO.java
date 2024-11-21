@@ -69,6 +69,7 @@ public class MovieDAO {
         return null;
     }
 
+
     public List<Movie> getAllMovies() {
         List<Movie> movies = new ArrayList<>();
         String sql = "SELECT * FROM movies";
@@ -115,19 +116,24 @@ public class MovieDAO {
         }
     }
 
-    private List<Review> getReviewsForMovie(int movieId) {
+    public List<Review> getReviewsForMovie(int movieId) {
         List<Review> reviews = new ArrayList<>();
-        String sql = "SELECT * FROM reviews WHERE movie_id = ?";
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+        String sqlQuery = "SELECT * FROM reviews WHERE movie_id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, movieId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 int userId = resultSet.getInt("user_id");
-                User user = getUserByID(userId);
-                Movie movie = getMovieById(movieId);
-                reviews.add(new Review(resultSet.getInt("id"), resultSet.getString("content"),
-                        resultSet.getInt("rating"), resultSet.getInt("movie_id"),
-                        resultSet.getString("title"), movie, user));
+                String content = resultSet.getString("content");
+                int rating = resultSet.getInt("rating");
+                Date createdAt = resultSet.getDate("created_at");
+
+                // Fetch the associated movie and user (You may want to fetch movie and user by ID here)
+                Movie movie = getMovieById(movieId); // Assuming you have a method to get movie by ID
+                User user = getUserByID(userId);     // Assuming you have a method to get user by ID
+
+                Review review = new Review(userId, content, rating, movieId, movie.getTitle(), movie, user);
+                reviews.add(review);
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -6,9 +6,9 @@ import java.sql.SQLException;
 
 public class DBUtil {
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/movie_db";  // Replace with your DB URL
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/webpro-quiz2";  // Replace with your DB URL
     private static final String DB_USER = "root";  // Replace with your DB user
-    private static final String DB_PASSWORD = "password";  // Replace with your DB password
+    private static final String DB_PASSWORD = "";  // Replace with your DB password
 
     // Method to establish a connection
     public static Connection getConnection() throws SQLException {

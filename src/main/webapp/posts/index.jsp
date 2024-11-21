@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.tailwindcss.com" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="input.css" rel="stylesheet">
-
-    <%--  <meta name="csrf-token" content="<%= csrfToken %>">--%>
-    <%--  <title><%= appConfig.get("app.name", "JavaApp") %></title>--%>
+    <link href="../input.css" rel="stylesheet">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -19,12 +16,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
 
-    <!-- Scripts -->
-    <%--  <script src="<%= resourcesPath %>/js/app.js" type="text/javascript"></script>--%>
-    <%--  <link href="<%= resourcesPath %>/css/app.css" rel="stylesheet">--%>
-
+    <!-- Custom Styles -->
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+        /* Add custom font styles here */
+        body {
+            font-family: 'Zen Dots', cursive, sans-serif;
+        }
+
+        .font-zen {
+            font-family: 'Zen Dots', cursive, sans-serif;
+        }
+
+        .font-cosmic {
+            font-family: 'Cosmic', sans-serif;
+        }
     </style>
 </head>
 
@@ -40,57 +45,34 @@
     <div class="shape"></div>
     <div class="shape"></div>
 
-    <%--  <!-- Navbar Include -->--%>
-    <%--  <%@ include file="layouts/navbar.jsp" %>--%>
-    <nav class="bg-[#1F2833] h-16 flex items-center">
+    <!-- Navbar Include -->
+    <nav class="bg-[#1F2833] h-16 flex items-center z-50 bg-opacity-50">
         <div class="container mx-auto flex justify-between items-center">
             <!-- Logo or Brand -->
             <a href="<c:url value='/' />" class="flex items-center">
                 <img src="${pageContext.request.contextPath}/images/logo.png" alt="Logo" class="h-20" />
             </a>
 
-            <!-- Hamburger Menu for Mobile -->
-            <div class="block md:hidden">
-                <button id="menu-btn" class="text-white focus:outline-none">
-                    <!-- Hamburger icon (three lines) -->
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-                    </svg>
-                </button>
-            </div>
-
-            <!-- Links -->
-            <div id="menu" class="hidden md:flex space-x-4">
+            <!-- Links (centered) -->
+            <div id="menu" class="flex-1 hidden md:flex justify-center space-x-4">
                 <a href="../dashboard.jsp" class="hover:text-gray-400 text-white">Home</a>
-                <a href="index.jsp" class="hover:text-gray-400 text-white">Post</a>
-                <a href="<c:url value='/reviews' />" class="hover:text-gray-400 text-white">Reviews</a>
+                <a href="../posts/index.jsp" class="hover:text-gray-400 text-white">Post</a>
+                <a href="../reviews/index.jsp" class="hover:text-gray-400 text-white">Reviews</a>
             </div>
 
-            <!-- Authentication Links -->
-
-        </div>
-
-        <!-- Mobile Menu (Initially Hidden) -->
-        <div id="mobile-menu" class="md:hidden hidden flex-col items-center bg-[#2F4156] space-y-4 p-4">
-            <a href="<c:url value='/' />" class="hover:text-gray-400 text-white">Home</a>
-            <a href="<c:url value='/movies' />" class="hover:text-gray-400 text-white">Movies</a>
-            <a href="<c:url value='/reviews' />" class="hover:text-gray-400 text-white">Reviews</a>
-            <a href="<c:url value='/categories' />" class="hover:text-gray-400 text-white">Categories</a> <!-- New Category Link -->
+            <!-- Logout button (aligned to the right) -->
+            <div>
+                <form action="${pageContext.request.contextPath}/LogoutServlet" method="GET">
+                    <button type="submit" class="text-white hover:text-gray-400 px-4 py-2">
+                        Logout
+                    </button>
+                </form>
+            </div>
         </div>
     </nav>
 
-    <%--  <!-- Page Heading -->--%>
-    <%--  <% if (header != null) { %>--%>
-    <%--  <header class="bg-[#2F4156]">--%>
-    <%--    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">--%>
-    <%--      <%= header %>--%>
-    <%--    </div>--%>
-    <%--  </header>--%>
-    <%--  <% } %>--%>
-
-    <%--  <!-- Page Content -->--%>
+    <!-- Page Content -->
     <main class="flex items-center justify-center mt-10">
-        <body class="font-sans antialiased bg-[#F5EFEB] text-black/50">
         <div class="container flex flex-col items-center">
             <div class="bg-[#1F2833] p-5 rounded-2xl flex flex-col items-center">
                 <h1 class="text-4xl mb-5 text-[#66FCF1] font-bold font-zen">POST</h1>
@@ -134,7 +116,6 @@
                 </div>
             </div>
         </div>
-        </body>
     </main>
 </div>
 

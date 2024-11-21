@@ -7,13 +7,10 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-        cosmic: ['Cosmic', 'sans-serif'], // Add Cosmic font here
-        zen: ['"Zen Dots"', 'sans-serif'], // Add Zen Dots font
+        cosmic: ['Cosmic', 'sans-serif'], // Cosmic font
+        zen: ['"Zen Dots"', 'sans-serif'], // Zen Dots font
       },
     },
   },
   plugins: [],
 }
-
-

@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300..700&display=swap" rel="stylesheet">
     <link href="https://fonts.cdnfonts.com/css/cosmic" rel="stylesheet">
-    <title>JSP Page</title>
+    <title>Rate-View</title>
     <script>
         tailwind.config = {
             theme: {
@@ -43,9 +43,18 @@
             </div>
             <!-- Right side (Links) -->
             <div class="px-4 sm:px-24 space-x-1 flex items-center">
-                <a href="dashboard.jsp" class="text-[#66FCF1] px-3 py-2 hover:text-white/70 md:text-2xl text-sm">
-                    Dashboard
-                </a>
+                <c:choose>
+                    <!-- Check if the user is logged in -->
+
+                    <c:otherwise>
+                        <a href="login.jsp" class="text-[#66FCF1] px-3 py-2 hover:text-white/70 md:text-2xl text-sm">
+                            Login
+                        </a>
+                        <a href="register.jsp" class="text-[#66FCF1] px-3 py-2 hover:text-white/70 md:text-2xl text-sm">
+                            Register
+                        </a>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </nav>
     </header>
@@ -56,7 +65,7 @@
                 <div class="text-center p-4 sm:p-6">
                     <img src="${pageContext.request.contextPath}/images/logo.png" alt="Rate-View Logo" class="h-72 mx-auto mb-4">
                     <p class="text-base sm:text-lg md:text-xl mb-6">Rate Shows That You Have Viewed</p>
-                    <a href="dashboard.jsp" class="mb-4 relative sm:w-auto w-full hover:-rotate-3 transition-all ease-out duration-300 inline-flex items-center justify-center px-6 py-3 text-lg font-bold text-white duration-100 bg-[#100E34] hover:bg-[#4F48EC] hover:scale-[1.01] rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
+                    <a href="register.jsp" class="mb-4 relative sm:w-auto w-full hover:-rotate-3 transition-all ease-out duration-300 inline-flex items-center justify-center px-6 py-3 text-lg font-bold text-white duration-100 bg-[#100E34] hover:bg-[#4F48EC] hover:scale-[1.01] rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
                         Get Started
                     </a>
                 </div>
