@@ -9,6 +9,13 @@ public class User {
     private String password;
 
     // Constructor
+    public User(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    // Constructor with 'id' for retrieving user information (e.g., login)
     public User(int id, String name, String email, String password) {
         this.id = id;
         this.name = name;
@@ -20,7 +27,7 @@ public class User {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public String getName() { return name; }
+    public String getUsername() { return name; }
     public void setName(String name) { this.name = name; }
 
     public String getEmail() { return email; }
