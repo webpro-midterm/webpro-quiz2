@@ -82,6 +82,7 @@ public class MovieDAO {
                 movie.setReviews(getReviewsForMovie(movie.getId()));
                 movies.add(movie);
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

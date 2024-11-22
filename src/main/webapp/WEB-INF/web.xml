@@ -52,5 +52,16 @@
         <url-pattern>/MovieServlet</url-pattern>
     </servlet-mapping>
 
+    <!-- Comment -->
+    <servlet>
+        <servlet-name>CommentServlet</servlet-name>
+        <servlet-class>com.example.servlet.CommentServlet</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>CommentServlet</servlet-name>
+        <url-pattern>/CommentServlet</url-pattern>
+    </servlet-mapping>
 
 </web-app>
