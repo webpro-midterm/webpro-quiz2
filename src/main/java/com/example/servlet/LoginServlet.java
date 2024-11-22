@@ -1,6 +1,7 @@
 package com.example.servlet;
 
 import com.example.dao.UserDAO;
+import com.example.model.Movie;
 import com.example.model.User;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -10,6 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.util.List;
 
 public class LoginServlet extends HttpServlet {
   private UserDAO userDAO = new UserDAO();
@@ -24,6 +26,8 @@ public class LoginServlet extends HttpServlet {
     System.out.println("Received password: " + password);
     // Try to get the user from the database using the DAO
     User user = userDAO.getUserFromEmail(email, password);
+
+
 
     System.out.println("User retrieved: " + (user != null ? user.getUsername() : "null"));
     if (user != null) {

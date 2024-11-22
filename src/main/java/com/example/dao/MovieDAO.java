@@ -119,7 +119,7 @@ public class MovieDAO {
 
     public List<Review> getReviewsForMovie(int movieId) {
         List<Review> reviews = new ArrayList<>();
-        String sqlQuery = "SELECT * FROM reviews WHERE movie_id = ?";
+        String sqlQuery = "SELECT * FROM reviews WHERE id = ?";
         try (PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
             statement.setInt(1, movieId);
             ResultSet resultSet = statement.executeQuery();

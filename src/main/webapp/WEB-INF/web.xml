@@ -64,4 +64,15 @@
         <url-pattern>/CommentServlet</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>CreateMovieServlet</servlet-name>
+        <servlet-class>com.example.servlet.CreateMovieServlet</servlet-class>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>CreateMovieServlet</servlet-name>
+        <url-pattern>/CreateMovieServlet</url-pattern>
+    </servlet-mapping>
+
 </web-app>
