@@ -31,7 +31,7 @@ public class MovieServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<Movie> movies = movieDAO.getAllMovies();
         request.setAttribute("movies", movies);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("posts/index.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -54,7 +54,7 @@ public class MovieServlet extends HttpServlet {
 
         @Override
         protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/create");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("/create.jsp");
             dispatcher.forward(request, response);
         }
 
@@ -75,7 +75,7 @@ public class MovieServlet extends HttpServlet {
             // Handle image upload
             Part filePart = request.getPart("image");
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-            String uploadPath = getServletContext().getRealPath("") + File.separator + "images";
+            String uploadPath = getServletContext().getRealPath("/images");
             File uploadDir = new File(uploadPath);
 
             if (!uploadDir.exists()) {
@@ -87,6 +87,9 @@ public class MovieServlet extends HttpServlet {
 
             String image = "images/" + fileName;
 
+            // Debugging: Print out the upload path and file path
+            System.out.println("Image uploaded to: " + filePath);
+
             Movie movie = new Movie(title, description, releaseDate, image, userId);
             boolean isAdded = movieDAO.addMovie(movie);
 
@@ -94,7 +97,7 @@ public class MovieServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/posts");
             } else {
                 request.setAttribute("error", "Failed to add movie");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/create");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/create.jsp");
                 dispatcher.forward(request, response);
             }
         }
@@ -127,22 +130,13 @@ public class MovieServlet extends HttpServlet {
         @Override
         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             HttpSession session = request.getSession();
-            String userIdParam = request.getParameter("user_id");
+            Integer userId = (Integer) session.getAttribute("user_id");
 
-            if (userIdParam == null || userIdParam.isEmpty()) {
+            if (userId == null) {
                 response.sendRedirect("/login");
                 return;
             }
 
-            int userId;
-            try {
-                userId = Integer.parseInt(userIdParam);
-            } catch (NumberFormatException e) {
-                response.sendRedirect("/login");
-                return;
-            }
-
-            int id = Integer.parseInt(request.getParameter("id"));
             String title = request.getParameter("title");
             String description = request.getParameter("description");
             String releaseDate = request.getParameter("release_date");
@@ -150,7 +144,7 @@ public class MovieServlet extends HttpServlet {
             // Handle image upload
             Part filePart = request.getPart("image");
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-            String uploadPath = getServletContext().getRealPath("") + File.separator + "images";
+            String uploadPath = getServletContext().getRealPath("/images");
             File uploadDir = new File(uploadPath);
 
             if (!uploadDir.exists()) {
@@ -162,17 +156,23 @@ public class MovieServlet extends HttpServlet {
 
             String image = "images/" + fileName;
 
-            Movie movie = new Movie(id, title, description, releaseDate, image, userId);
-            boolean isUpdated = movieDAO.updateMovie(movie);
+            Movie movie = new Movie(title, description, releaseDate, image, userId);
+            boolean isAdded = movieDAO.addMovie(movie);
 
-            if (isUpdated) {
-                response.sendRedirect("/posts");
+            // If movie is successfully added, forward to the posts page
+            if (isAdded) {
+                // Fetch the updated list of movies and forward to the index.jsp
+                List<Movie> movies = movieDAO.getAllMovies();
+                request.setAttribute("movies", movies);
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/posts/index.jsp");
+                dispatcher.forward(request, response);
             } else {
-                request.setAttribute("error", "Failed to update movie");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/edit.jsp");
+                request.setAttribute("error", "Failed to add movie");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/create.jsp");
                 dispatcher.forward(request, response);
             }
         }
+
     }
 
     // Delete a movie

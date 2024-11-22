@@ -86,7 +86,7 @@
                     <c:forEach var="movie" items="${movies}">
                         <div class="relative rounded-xl overflow-hidden">
                             <c:if test="${not empty movie.image}">
-                                <img src="<c:url value='/storage/${movie.image}' />" class="object-cover h-full w-full -z-10" alt="${movie.title}">
+                                <img src="<c:url value='../images/${movie.image}' />" class="object-cover h-full w-full -z-10" alt="${movie.title}">
                             </c:if>
                             <div class="absolute top-0 h-full w-full bg-gradient-to-t from-black/50 p-3 flex flex-col justify-between">
                                 <div class="flex justify-between">

@@ -1,5 +1,6 @@
 package com.example.model;
 
+import java.io.File;
 import java.util.List;
 
 public class Movie {
@@ -28,8 +29,6 @@ public class Movie {
         this.image = image;
         this.userId = userId;
     }
-
-
 
     // Getters and Setters
     public int getId() {
@@ -86,5 +85,18 @@ public class Movie {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    // New method to get the image path
+    public String getImagePath() {
+        // Path where images are stored in the project
+        String imagesFolder = "D:/ITS/Study/Semester 3/Web Programming/Quiz2/quiz2-webpro/target/quiz2-webpro-1.0-SNAPSHOT/images/";
+        File imageFile = new File(imagesFolder, this.image);
+
+        if (!imageFile.exists()) {
+            // Handle missing image, e.g., return a default image path
+            return "/images/default.jpg";  // Default image path
+        }
+        return "/images/" + this.image; // Correct image path
     }
 }
