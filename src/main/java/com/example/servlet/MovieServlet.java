@@ -14,6 +14,7 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
 
+@WebServlet("/posts")
 public class MovieServlet extends HttpServlet {
     private MovieDAO movieDAO;
 
@@ -104,7 +105,7 @@ public class MovieServlet extends HttpServlet {
     }
 
     // Show the form for editing an existing movie
-    @WebServlet("/movies/edit")
+    @WebServlet("/posts/edit")
     @MultipartConfig
     public static class EditMovieServlet extends HttpServlet {
         private MovieDAO movieDAO;
@@ -157,22 +158,20 @@ public class MovieServlet extends HttpServlet {
             String image = "images/" + fileName;
 
             Movie movie = new Movie(title, description, releaseDate, image, userId);
-            boolean isAdded = movieDAO.addMovie(movie);
+            boolean isUpdated = movieDAO.updateMovie(movie);
 
-            // If movie is successfully added, forward to the posts page
-            if (isAdded) {
+            if (isUpdated) {
                 // Fetch the updated list of movies and forward to the index.jsp
                 List<Movie> movies = movieDAO.getAllMovies();
                 request.setAttribute("movies", movies);
                 RequestDispatcher dispatcher = request.getRequestDispatcher("/posts/index.jsp");
                 dispatcher.forward(request, response);
             } else {
-                request.setAttribute("error", "Failed to add movie");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/create.jsp");
+                request.setAttribute("error", "Failed to update movie");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/edit.jsp");
                 dispatcher.forward(request, response);
             }
         }
-
     }
 
     // Delete a movie
@@ -195,10 +194,10 @@ public class MovieServlet extends HttpServlet {
             boolean isDeleted = movieDAO.deleteMovie(movieId);
 
             if (isDeleted) {
-                response.sendRedirect("/movies");
+                response.sendRedirect("/posts");
             } else {
                 request.setAttribute("error", "Failed to delete movie");
-                RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("/posts/index.jsp");
                 dispatcher.forward(request, response);
             }
         }
