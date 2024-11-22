@@ -4,10 +4,13 @@ import com.example.dao.MovieDAO;
 import com.example.model.Movie;
 import com.example.util.DBUtil;
 import jakarta.servlet.*;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -34,6 +37,9 @@ public class MovieServlet extends HttpServlet {
 
     // Show the form for creating a new movie
     @WebServlet("/posts/create")
+    @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
+            maxFileSize = 1024 * 1024 * 10, // 10MB
+            maxRequestSize = 1024 * 1024 * 50) // 50MB
     public static class CreateMovieServlet extends HttpServlet {
         private MovieDAO movieDAO;
 
@@ -54,29 +60,36 @@ public class MovieServlet extends HttpServlet {
 
         @Override
         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            // Get the user_id from session (ensure user is logged in)
             HttpSession session = request.getSession();
             Integer userId = (Integer) session.getAttribute("user_id");
-            System.out.println("doPost is triggered ");
-
 
             if (userId == null) {
-                // If user is not logged in, redirect to login page
                 response.sendRedirect("/login");
                 return;
             }
 
-            // Get the other movie details from the form
             String title = request.getParameter("title");
             String description = request.getParameter("description");
             String releaseDate = request.getParameter("release_date");
-            String image = request.getParameter("image");
-            System.out.println("Title: " + title);
-            // Create a Movie object with the user_id from the session
+
+            // Handle image upload
+            Part filePart = request.getPart("image");
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            String uploadPath = getServletContext().getRealPath("") + File.separator + "images";
+            File uploadDir = new File(uploadPath);
+
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
+            String filePath = uploadPath + File.separator + fileName;
+            filePart.write(filePath);
+
+            String image = "images/" + fileName;
+
             Movie movie = new Movie(title, description, releaseDate, image, userId);
-            System.out.println("Title " + movie.getTitle());
             boolean isAdded = movieDAO.addMovie(movie);
-            System.out.println("Movie Added: " + isAdded);
+
             if (isAdded) {
                 response.sendRedirect(request.getContextPath() + "/posts");
             } else {
@@ -89,6 +102,7 @@ public class MovieServlet extends HttpServlet {
 
     // Show the form for editing an existing movie
     @WebServlet("/movies/edit")
+    @MultipartConfig
     public static class EditMovieServlet extends HttpServlet {
         private MovieDAO movieDAO;
 
@@ -112,37 +126,42 @@ public class MovieServlet extends HttpServlet {
 
         @Override
         protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            // Get the user_id from session (ensure user is logged in)
             HttpSession session = request.getSession();
             String userIdParam = request.getParameter("user_id");
 
             if (userIdParam == null || userIdParam.isEmpty()) {
-                // If the user_id parameter is missing, redirect to login page
                 response.sendRedirect("/login");
-                System.out.println("parameter missing");
                 return;
             }
 
             int userId;
             try {
-                userId = Integer.parseInt(userIdParam);  // Try to parse the user_id
+                userId = Integer.parseInt(userIdParam);
             } catch (NumberFormatException e) {
-                // If the user_id is not a valid number, redirect to login page
-                System.out.println("nothing");
                 response.sendRedirect("/login");
                 return;
             }
-            System.out.println(userId);
-            System.out.println(userIdParam);
-            System.out.println("user");
-            // Get movie details from the form
+
             int id = Integer.parseInt(request.getParameter("id"));
             String title = request.getParameter("title");
             String description = request.getParameter("description");
             String releaseDate = request.getParameter("release_date");
-            String image = request.getParameter("image");
 
-            // Create a Movie object with the user_id from session
+            // Handle image upload
+            Part filePart = request.getPart("image");
+            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+            String uploadPath = getServletContext().getRealPath("") + File.separator + "images";
+            File uploadDir = new File(uploadPath);
+
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+
+            String filePath = uploadPath + File.separator + fileName;
+            filePart.write(filePath);
+
+            String image = "images/" + fileName;
+
             Movie movie = new Movie(id, title, description, releaseDate, image, userId);
             boolean isUpdated = movieDAO.updateMovie(movie);
 
